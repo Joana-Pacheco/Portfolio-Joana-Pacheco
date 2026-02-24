@@ -26,7 +26,7 @@ form.addEventListener("submit", function(event) {
         return;
     }
 
-    // Se passou na validação
+    // Exibe mensagem de sucesso após validação completa
     statusMensagem.innerText = "Mensagem enviada com sucesso!";
     statusMensagem.style.color = "green";
 
