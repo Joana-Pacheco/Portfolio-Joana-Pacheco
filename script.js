@@ -1,31 +1,35 @@
-// Seleciona o formulário 
-const formulario = document.getElementById('formContato');
+// Selecionando o formulário
+const form = document.getElementById("form-contato");
+const statusMensagem = document.getElementById("mensagem-status");
 
-formulario.addEventListener('submit', function(event) {
-    // Impede o envio padrão do formulário para validar primeiro
-    event.preventDefault();
+form.addEventListener("submit", function(event) {
 
-    // Capturando os valores dos campos 
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const mensagem = document.getElementById('mensagem').value;
+    event.preventDefault(); // Impede envio padrão
 
-    // Verifica se campos estão vazios 
-    if (nome === '' || email === '' || mensagem === '') {
-        alert('Por favor, preencha todos os campos obrigatórios!');
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    // Verifica se os campos estão vazios
+    if (nome === "" || email === "" || mensagem === "") {
+        statusMensagem.innerText = "Preencha todos os campos.";
+        statusMensagem.style.color = "red";
         return;
     }
 
-    // Validação de formato de e-mail usando Expressão Regular
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Por favor, insira um e-mail válido (exemplo: usuario@dominio.com).');
+    // Validação simples de e-mail
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailValido.test(email)) {
+        statusMensagem.innerText = "Digite um e-mail válido.";
+        statusMensagem.style.color = "red";
         return;
     }
 
-    // Simulação de envio com sucesso 
-    alert('Mensagem enviada com sucesso! (Simulação)');
-    
-    // Limpar os campos após o envio 
-    formulario.reset();
+    // Se passou na validação
+    statusMensagem.innerText = "Mensagem enviada com sucesso!";
+    statusMensagem.style.color = "green";
+
+    // Limpa formulário
+    form.reset();
 });
