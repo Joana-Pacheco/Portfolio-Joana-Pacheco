@@ -1,5 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
     background: radial-gradient(circle at top, #3a0066, #1a001f 70%);
     min-height: 100vh;
     color: white;
@@ -150,4 +151,59 @@ button:hover {
 .projeto h3 {
     color: #d291ff;
     margin-bottom: 10px;
+}
+.sobre-container {
+    display: flex;
+    align-items: center; /* alinha verticalmente */
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.sobre-container ul {
+    flex: 1; /* faz o texto ocupar o espaço da esquerda */
+}
+
+.foto-formatura {
+    width: 280px;
+    height: auto;
+    border-radius: 10px;
+}
+@media (max-width: 768px) { /* responsividade */
+    .sobre-container {
+        flex-direction: column; /* empilha */
+        text-align: center;
+    }
+
+    .foto-formatura {
+        width: 200px;
+    }
+
+    .sobre-container ul {
+        padding: 0;
+    }
+}
+.card-sobre {
+    background-color: #e8d3a3; /* bege  com toque dourado */
+    color: #2b2b2b; /* texto escuro */
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 15px;
+}
+.card-sobre h1 {
+    color: #4b0082; /* roxo elegante */
+    font-size: 34px;
+    margin-bottom: 25px;
+}
+.card-sobre {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 1px solid #e0c48f;
+}
+.sobre-texto ul li {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.sobre-texto {
+    border-left: 4px solid #4b0082;
+    padding-left: 20px;
 }
