@@ -1,35 +1,31 @@
-// Selecionando o formulário
-const form = document.getElementById("form-contato");
-const statusMensagem = document.getElementById("mensagem-status");
+const elementos = document.querySelectorAll(
+    '.habilidade, .projeto, .sobre-texto, .sobre-destaque'
+);
 
-form.addEventListener("submit", function(event) {
+const observer = new IntersectionObserver(
+    (entries) => {
 
-    event.preventDefault(); // Impede envio padrão
+        entries.forEach((entry) => {
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const mensagem = document.getElementById("mensagem").value.trim();
+            if (entry.isIntersecting) {
 
-    // Verifica se os campos estão vazios
-    if (nome === "" || email === "" || mensagem === "") {
-        statusMensagem.innerText = "Preencha todos os campos.";
-        statusMensagem.style.color = "red";
-        return;
+                entry.target.classList.add('visivel');
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.15
     }
+);
 
-    // Validação simples de e-mail
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailValido.test(email)) {
-        statusMensagem.innerText = "Digite um e-mail válido.";
-        statusMensagem.style.color = "red";
-        return;
-    }
+elementos.forEach((elemento) => {
 
-    // Exibe mensagem de sucesso após validação completa
-    statusMensagem.innerText = "Mensagem enviada com sucesso!";
-    statusMensagem.style.color = "green";
+    elemento.classList.add('animar');
 
-    // Limpa formulário
-    form.reset();
+    observer.observe(elemento);
+
 });
