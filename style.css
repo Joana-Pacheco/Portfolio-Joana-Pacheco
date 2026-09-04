@@ -1,8 +1,10 @@
-/* =========================
+/* =========================================================
    CONFIGURAÇÕES GERAIS
-========================= */
+========================================================= */
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,6 +12,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -17,6 +20,7 @@ body {
     background-color: #F6F0E4;
     color: #29252f;
     line-height: 1.7;
+    overflow-x: hidden;
 }
 
 a {
@@ -31,17 +35,19 @@ ul {
 img {
     display: block;
     max-width: 100%;
+    height: auto;
 }
 
+/* Container principal do site */
 .container {
     width: min(1120px, 90%);
     margin: 0 auto;
 }
 
 
-/* =========================
+/* =========================================================
    CABEÇALHO
-========================= */
+========================================================= */
 
 .cabecalho {
     position: sticky;
@@ -60,22 +66,32 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    gap: 20px;
 }
 
 .logo {
+    flex-shrink: 0;
+
     font-family: 'Allura', cursive;
     font-size: 2.6rem;
     font-weight: 400;
+    line-height: 1;
+
     color: #321258;
 }
 
 .menu {
     display: flex;
+    align-items: center;
+
     gap: 16px;
 }
 
 .menu a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     padding: 8px 15px;
 
@@ -87,21 +103,21 @@ img {
     font-size: 0.88rem;
     font-weight: 500;
 
+    white-space: nowrap;
+
     transition: 0.3s;
 }
 
-
 .menu a:hover {
     background: #2f351f;
-    color: #ffffff;
 
     transform: translateY(-2px);
 }
 
 
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero {
     min-height: calc(100vh - 76px);
@@ -110,18 +126,28 @@ img {
     align-items: center;
 
     padding: 60px 0;
-    overflow: hidden;
 }
+
+/*
+   IMPORTANTE:
+   não colocar width: 100% aqui.
+   hero-conteudo também usa a classe container no HTML.
+*/
 
 .hero-conteudo {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
 
-    gap: 80px;
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(280px, 0.8fr);
+
+    gap: clamp(45px, 6vw, 80px);
+
     align-items: center;
 }
 
 .hero-texto {
+    min-width: 0;
     max-width: 680px;
 }
 
@@ -136,40 +162,44 @@ img {
     font-weight: 600;
 
     letter-spacing: 0.08em;
+
     text-transform: uppercase;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
 
-    font-size: clamp(3rem, 6vw, 5.3rem);
+    font-size: clamp(3rem, 5.7vw, 5.3rem);
+
     line-height: 1.05;
 
     color: #261c30;
-
-    margin-bottom: 0;
 }
 
 .hero h1 span {
     display: block;
+
     color: #6d28d9;
 }
 
 .hero-descricao {
     max-width: 660px;
 
-    font-size: 1.08rem;
-    color: #625a68;
-
     margin-top: 28px;
+
+    font-size: 1.08rem;
+
+    color: #625a68;
 }
 
 .hero-botoes {
     display: flex;
+
     gap: 15px;
+
     flex-wrap: wrap;
 
-    margin-top: 70px;
+    margin-top: 48px;
 }
 
 .botao {
@@ -184,12 +214,15 @@ img {
 
     font-weight: 600;
 
+    text-align: center;
+
     transition: 0.3s;
 }
 
 .botao-principal,
 .botao-secundario {
     background: #6d28d9;
+
     color: white;
 
     border: 1px solid #6d28d9;
@@ -200,41 +233,44 @@ img {
 .botao-principal:hover,
 .botao-secundario:hover {
     background: #5b21b6;
+
     border-color: #5b21b6;
 
     transform: translateY(-2px);
 }
 
 
-/* =========================
+/* =========================================================
    FOTO DO HERO
-========================= */
+========================================================= */
 
 .hero-visual {
+    min-width: 0;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
-
-    min-height: 520px;
-
-    padding-right: 24px;
 }
 
 .moldura-foto {
     position: relative;
 
-    width: min(380px, 100%);
-    height: 480px;
+    width: min(380px, calc(100% - 24px));
+
+    aspect-ratio: 380 / 480;
 }
 
 .foto-perfil {
     position: relative;
+
     z-index: 2;
 
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+
     object-position: center 35%;
 
     border-radius: 8px;
@@ -244,6 +280,7 @@ img {
 
 .detalhe-roxo {
     position: absolute;
+
     z-index: 1;
 
     width: 100%;
@@ -258,9 +295,9 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    SEÇÕES
-========================= */
+========================================================= */
 
 .secao {
     padding: 70px 0;
@@ -297,21 +334,25 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    SOBRE
-========================= */
+========================================================= */
 
 .sobre-grid {
     display: grid;
 
-    grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+    grid-template-columns:
+        minmax(0, 1.3fr)
+        minmax(260px, 0.7fr);
 
-    gap: 90px;
+    gap: clamp(45px, 7vw, 90px);
 
     align-items: center;
 }
 
 .sobre-texto {
+    min-width: 0;
+
     font-size: 1.05rem;
 
     color: #625a68;
@@ -326,9 +367,11 @@ img {
 }
 
 .sobre-destaque {
+    min-width: 0;
     min-height: 370px;
 
     display: flex;
+
     flex-direction: column;
 
     justify-content: center;
@@ -343,15 +386,19 @@ img {
 
 .numero-grande {
     font-family: 'Playfair Display', serif;
+
     font-size: 4.5rem;
+
     font-weight: 700;
+
     line-height: 1;
+
     color: #66713E;
-}
 }
 
 .sobre-destaque p:not(.numero-grande) {
     margin-top: 10px;
+
     color: #403841;
 }
 
@@ -364,19 +411,21 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    HABILIDADES
-========================= */
+========================================================= */
 
 .habilidades-grid {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 24px;
 }
 
 .habilidade {
+    min-width: 0;
+
     background: white;
 
     padding: 32px;
@@ -409,19 +458,20 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    PROJETOS
-========================= */
+========================================================= */
 
 .projetos-grid {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 28px;
 }
 
 .projeto {
+    min-width: 0;
     min-height: 320px;
 
     padding: 38px;
@@ -433,6 +483,7 @@ img {
     border-radius: 16px;
 
     display: flex;
+
     flex-direction: column;
 
     transition: 0.3s;
@@ -482,12 +533,16 @@ img {
     margin-top: auto;
 
     margin-bottom: 20px;
+
+    overflow-wrap: anywhere;
 }
 
 .projeto a {
     color: #6d28d9;
 
     font-weight: 600;
+
+    overflow-wrap: anywhere;
 }
 
 .projeto a:hover {
@@ -511,9 +566,9 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    CONTATO
-========================= */
+========================================================= */
 
 .contato {
     background: #321c47;
@@ -582,9 +637,9 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    RODAPÉ
-========================= */
+========================================================= */
 
 .rodape {
     background: #241431;
@@ -593,7 +648,7 @@ img {
 
     text-align: center;
 
-    padding: 25px;
+    padding: 25px 20px;
 }
 
 .rodape p {
@@ -601,9 +656,9 @@ img {
 }
 
 
-/* =========================
+/* =========================================================
    ANIMAÇÕES
-========================= */
+========================================================= */
 
 .animar {
     opacity: 0;
@@ -622,20 +677,22 @@ img {
 }
 
 
-/* =========================
-   RESPONSIVO
-========================= */
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 900px) {
 
     .hero {
-        padding: 70px 0;
+        min-height: auto;
+
+        padding: 60px 0 70px;
     }
 
     .hero-conteudo {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
 
-        gap: 50px;
+        gap: 45px;
     }
 
     .hero-texto {
@@ -643,18 +700,15 @@ img {
     }
 
     .hero-visual {
-        min-height: auto;
-
-        padding-right: 20px;
+        justify-content: center;
     }
 
     .moldura-foto {
-        width: min(380px, 90%);
-        height: 470px;
+        width: min(380px, calc(100% - 30px));
     }
 
     .sobre-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
 
         gap: 45px;
     }
@@ -663,113 +717,333 @@ img {
         min-height: auto;
 
         border-left: none;
+
         border-top: 3px solid #6d28d9;
 
         padding: 40px 20px;
     }
 
     .habilidades-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 
-/* =========================
+/* =========================================================
    CELULAR
-========================= */
+========================================================= */
 
 @media (max-width: 650px) {
 
     .container {
-        width: min(92%, 1120px);
+        width: calc(100% - 32px);
     }
 
+
+    /* -------------------------
+       CABEÇALHO
+    ------------------------- */
+
     .navegacao {
-        height: 68px;
+        height: auto;
+
+        min-height: 65px;
+
+        padding: 10px 0;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 10px;
     }
 
     .logo {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
     }
 
     .menu {
-        gap: 18px;
-    }
+        gap: 6px;
 
-    .menu li:nth-child(2),
-    .menu li:nth-child(3) {
-        display: none;
+        flex-wrap: nowrap;
     }
 
     .menu a {
-        font-size: 0.88rem;
+        padding: 7px 9px;
+
+        font-size: 0.7rem;
+
+        border-radius: 8px;
     }
+
+
+    /* -------------------------
+       HERO
+    ------------------------- */
 
     .hero {
         min-height: auto;
 
-        padding: 65px 0 80px;
+        padding: 42px 0 55px;
+    }
+
+    /*
+       Continua sendo container.
+       NÃO usar width: 100%.
+    */
+
+    .hero-conteudo {
+        grid-template-columns: minmax(0, 1fr);
+
+        gap: 34px;
+    }
+
+    .hero-texto {
+        max-width: 100%;
+    }
+
+    .tag {
+        display: block;
+
+        margin-bottom: 20px;
+
+        font-size: 0.68rem;
+
+        letter-spacing: 0.04em;
+
+        line-height: 1.5;
     }
 
     .hero h1 {
-        font-size: clamp(3rem, 15vw, 4.4rem);
+        font-size: clamp(2.7rem, 12vw, 3.5rem);
+
+        line-height: 1;
+    }
+
+    .hero-descricao {
+        margin-top: 24px;
+
+        font-size: 1rem;
     }
 
     .hero-botoes {
-        margin-top: 45px;
-
         flex-direction: column;
+
+        gap: 12px;
+
+        margin-top: 30px;
     }
 
     .botao {
         width: 100%;
+
+        padding: 13px 16px;
+
+        font-size: 0.88rem;
     }
 
+
+    /* -------------------------
+       FOTO
+    ------------------------- */
+
     .hero-visual {
-        padding-right: 12px;
+        justify-content: center;
+
+        padding: 0;
     }
 
     .moldura-foto {
-        width: min(330px, 92%);
-        height: 420px;
+        width: min(300px, calc(100% - 24px));
+
+        aspect-ratio: 300 / 380;
     }
 
     .detalhe-roxo {
-        top: 15px;
-        left: 15px;
+        top: 14px;
+
+        left: 14px;
     }
 
+
+    /* -------------------------
+       SEÇÕES
+    ------------------------- */
+
     .secao {
-        padding: 80px 0;
+        padding: 55px 0;
     }
 
     .titulo-secao {
-        margin-bottom: 40px;
+        gap: 10px;
+
+        margin-bottom: 32px;
     }
+
+    .titulo-secao h2 {
+        font-size: 2rem;
+
+        line-height: 1.15;
+    }
+
+
+    /* -------------------------
+       SOBRE
+    ------------------------- */
 
     .sobre-grid {
-        gap: 40px;
+        grid-template-columns: minmax(0, 1fr);
+
+        gap: 32px;
     }
+
+    .sobre-texto {
+        font-size: 0.98rem;
+    }
+
+    .sobre-texto p {
+        margin-bottom: 18px;
+    }
+
+    .sobre-destaque {
+        padding: 35px 18px;
+    }
+
+    .numero-grande {
+        font-size: 3.5rem;
+    }
+
+
+    /* -------------------------
+       HABILIDADES
+    ------------------------- */
 
     .habilidades-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+
+        gap: 18px;
     }
 
+    .habilidade {
+        padding: 25px 22px;
+    }
+
+
+    /* -------------------------
+       PROJETOS
+    ------------------------- */
+
     .projetos-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+
+        gap: 20px;
     }
 
     .projeto {
         min-height: auto;
+
+        padding: 27px 22px;
     }
 
+
+    /* -------------------------
+       CONTATO
+    ------------------------- */
+
     .contato {
-        padding: 80px 0;
+        padding: 65px 0;
+    }
+
+    .contato h2 {
+        font-size: clamp(2rem, 10vw, 2.7rem);
     }
 
     .contato-links {
-        flex-direction: column;
+        gap: 18px 22px;
+    }
+}
 
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .container {
+        width: calc(100% - 28px);
+    }
+
+    .logo {
+        font-size: 1.65rem;
+    }
+
+    .menu {
+        gap: 5px;
+    }
+
+    .menu a {
+        padding: 6px 8px;
+
+        font-size: 0.67rem;
+    }
+
+    .hero {
+        padding-top: 38px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.6rem, 12vw, 3.2rem);
+    }
+
+    .tag {
+        font-size: 0.65rem;
+    }
+
+    .moldura-foto {
+        width: min(280px, calc(100% - 20px));
+    }
+
+    .titulo-secao h2 {
+        font-size: 1.85rem;
+    }
+
+    .projeto,
+    .habilidade {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .navegacao {
         align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .menu {
+        width: 100%;
+
+        justify-content: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .hero h1 {
+        font-size: 2.55rem;
     }
 }
